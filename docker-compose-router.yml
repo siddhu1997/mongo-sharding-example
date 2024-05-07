@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  mongos:
+    image: mongo
+    command: ["mongos", "--configdb", "configReplSet/configsvr1:27019,configsvr2:27020,configsvr3:27021", "--port", "27017",  "--bind_ip", "0.0.0.0"]
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-shard-network
+
+networks:
+  mongo-shard-network:
+    external: true

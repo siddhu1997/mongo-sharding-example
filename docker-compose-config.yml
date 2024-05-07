@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  configsvr1:
+    image: mongo
+    command: ["mongod", "--configsvr", "--replSet", "configReplSet", "--port", "27019"]
+    ports:
+      - "27019:27019"
+    networks:
+      - mongo-shard-network
+
+  configsvr2:
+    image: mongo
+    command: ["mongod", "--configsvr", "--replSet", "configReplSet", "--port", "27020"]
+    ports:
+      - "27020:27020"
+    networks:
+      - mongo-shard-network
+
+  configsvr3:
+    image: mongo
+    command: ["mongod", "--configsvr", "--replSet", "configReplSet", "--port", "27021"]
+    ports:
+      - "27021:27021"
+    networks:
+      - mongo-shard-network
+
+networks:
+  mongo-shard-network:
+    external: true

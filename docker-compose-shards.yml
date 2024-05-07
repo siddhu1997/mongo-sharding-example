@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  shard1_1:
+    image: mongo
+    command: ["mongod", "--shardsvr", "--replSet", "shardReplSet1", "--port", "27018"]
+    ports:
+      - "27018:27018"
+    networks:
+      - mongo-shard-network
+
+  shard1_2:
+    image: mongo
+    command: ["mongod", "--shardsvr", "--replSet", "shardReplSet1", "--port", "27022"]
+    ports:
+      - "27022:27022"
+    networks:
+      - mongo-shard-network
+
+  shard2_1:
+    image: mongo
+    command: ["mongod", "--shardsvr", "--replSet", "shardReplSet2", "--port", "27023"]
+    ports:
+      - "27023:27023"
+    networks:
+      - mongo-shard-network
+
+  shard2_2:
+    image: mongo
+    command: ["mongod", "--shardsvr", "--replSet", "shardReplSet2", "--port", "27024"]
+    ports:
+      - "27024:27024"
+    networks:
+      - mongo-shard-network
+
+networks:
+  mongo-shard-network:
+    external: true
